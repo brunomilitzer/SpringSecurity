@@ -26,6 +26,12 @@ public class ProductController {
     @Value("${couponService.url}")
     private String couponServiceUrl;
 
+    @GetMapping(value = "/product/{id}")
+    public Product getProduct(@PathVariable("id") Long id) {
+
+        return repository.findById(id).get();
+    }
+
     @PostMapping(value = "/product")
     public Product create(@RequestBody Product product) {
 
@@ -36,11 +42,5 @@ public class ProductController {
         }
 
         return repository.save(product);
-    }
-
-    @GetMapping(value = "/product/{id}")
-    public Product getProduct(@PathVariable("id") Long id) {
-
-        return repository.findById(id).get();
     }
 }
