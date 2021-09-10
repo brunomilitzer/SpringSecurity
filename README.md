@@ -7,6 +7,7 @@
 1. [firstapp](https://github.com/brunomilitzer/SpringSecurity/tree/master/firstapp)
 2. [couponservice](https://github.com/brunomilitzer/SpringSecurity/tree/master/couponservice)
 3. [productservice](https://github.com/brunomilitzer/SpringSecurity/tree/master/productservice)
+4. [authserver](https://github.com/brunomilitzer/SpringSecurity/tree/master/AuthServer)
 
 Profiles Demo
 
