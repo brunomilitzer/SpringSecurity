@@ -12,7 +12,7 @@
     <artifactId>productservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>productservice</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Product Service</description>
     <properties>
         <java.version>11</java.version>
     </properties>
