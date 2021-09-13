@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().denyAll().and().csrf().and().logout().logoutSuccessUrl("/");
 
         // Custom cors configuration
-        http.cors(corsCustomizer -> {
+        /*http.cors(corsCustomizer -> {
             CorsConfigurationSource configurationSource = request -> {
                 CorsConfiguration corsConfiguration = new CorsConfiguration();
                 corsConfiguration.setAllowedOrigins(List.of("localhost:3000"));
@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             };
 
             corsCustomizer.configurationSource(configurationSource);
-        });
+        });*/
 
         /*http.csrf(csrfCustomizer-> {
             csrfCustomizer.ignoringAntMatchers("/couponapi/coupons/**");
