@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
@@ -28,11 +29,13 @@ class CouponserviceApplicationTests {
 
     @Test
     void testGetCouponWithoutAuth_Forbidden() throws Exception {
-        mockMvc.perform(get("/couponapi/coupons/SUPERSALE")).andExpect(status().isForbidden());
+        //mockMvc.perform(get("/couponapi/coupons/SUPERSALE")).andExpect(status().isForbidden());
+        mockMvc.perform(get("/couponapi/coupons/SUPERSALE")).andExpect(status().isUnauthorized());
     }
 
     @Test
-    @WithMockUser(roles = { "USER", "ADMIN" })
+    //@WithMockUser(roles = { "USER", "ADMIN" })
+    @WithUserDetails("brunomilitzer")
     void testGetCouponWithoutAuth_Success() throws Exception {
         mockMvc.perform(get("/couponapi/coupons/SUPERSALE")).andExpect(status().isOk())
             .andExpect(content().string("{\"id\":1,\"code\":\"SUPERSALE\",\"discount\":10.000,\"expDate\":\"12/12/21\"}"));

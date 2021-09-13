@@ -35,14 +35,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().mvcMatchers(HttpMethod.GET, "/couponapi/coupons/{code:^[A-Z]*$}",
+        http.httpBasic();
+
+        /*http.authorizeRequests().mvcMatchers(HttpMethod.GET, "/couponapi/coupons/{code:^[A-Z]*$}",
             "/index", "/showGetCoupon", "/couponDetails")
             .hasAnyRole("USER", "ADMIN")
             .mvcMatchers(HttpMethod.GET, "/showCreateCoupon", "/createCoupon", "/createResponse").hasRole("ADMIN")
             .mvcMatchers(HttpMethod.POST, "/getCoupon").hasAnyRole("USER", "ADMIN")
             .mvcMatchers(HttpMethod.POST, "/couponapi/coupons", "/saveCoupon", "/getCoupon").hasRole("ADMIN")
             .mvcMatchers("/", "/login", "/showReg", "/registerUser").permitAll()
-            .anyRequest().denyAll().and().csrf().and().logout().logoutSuccessUrl("/");
+            .anyRequest().denyAll().and().csrf().and().logout().logoutSuccessUrl("/");*/
 
         // Custom cors configuration
         /*http.cors(corsCustomizer -> {
