@@ -1,12 +1,14 @@
 package com.brunomilitzer.springsecurity.config;
 
 import com.brunomilitzer.springsecurity.security.UserDetailsServiceImpl;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,9 +17,12 @@ import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -38,6 +43,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .mvcMatchers(HttpMethod.POST, "/couponapi/coupons", "/saveCoupon", "/getCoupon").hasRole("ADMIN")
             .mvcMatchers("/", "/login", "/showReg", "/registerUser").permitAll()
             .anyRequest().denyAll().and().csrf().and().logout().logoutSuccessUrl("/");
+
+        // Custom cors configuration
+        http.cors(corsCustomizer -> {
+            CorsConfigurationSource configurationSource = request -> {
+                CorsConfiguration corsConfiguration = new CorsConfiguration();
+                corsConfiguration.setAllowedOrigins(List.of("localhost:3000"));
+                corsConfiguration.setAllowedMethods(List.of("GET"));
+
+                return corsConfiguration;
+            };
+
+            corsCustomizer.configurationSource(configurationSource);
+        });
 
         /*http.csrf(csrfCustomizer-> {
             csrfCustomizer.ignoringAntMatchers("/couponapi/coupons/**");
